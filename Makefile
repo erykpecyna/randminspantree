@@ -3,8 +3,8 @@ CXXFLAGS = -Wall -g
 
 all: randmst
 
-randmst: randmst.o Graph.o UnionFind.o
-	$(CXX) $(CXXFLAGS) -o randmst randmst.o Graph.o UnionFind.o
+randmst: randmst.o Graph.o UnionFind.o helpers.o
+	$(CXX) $(CXXFLAGS) -o randmst randmst.o Graph.o UnionFind.o helpers.o
 
 randmst.o: randmst.cpp Graph.h
 	$(CXX) $(CXXFLAGS) -c randmst.cpp
@@ -14,6 +14,9 @@ graph.o: Graph.h
 
 unionfind.o: UnionFind.h
 	$(CXX) $(CXXFLAGS) -c UnionFind.cpp
+
+helpers.o: helpers.h
+	$(CXX) $(CXXFLAGS) -c helpers.cpp
 
 clean:
 	rm randmst *.o
