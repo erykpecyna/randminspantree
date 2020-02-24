@@ -33,13 +33,13 @@ void Graph::generate_edges() {
     std::mt19937 generator(seed);
     uniform_real_distribution unif(0,1);
 
-    for(int i1 = 0; i1 < n; i1++) {
+    for(int i = 0; i < n; i++) {
 
-        for (int i2 = i1 + 1; i2 < n; i2++) {
+        for (int j = i + 1; j < n; j++) {
             if(d==1) {
-                edges.push_back(edge_t(unif(generator), edge(i1, i2)));
+                edges.push_back(edge_t(unif(generator), edge(i, j)));
             } else {
-                edges.push_back(edge_t(euclid_distance(vector_coordinates[i1], vector_coordinates[i2]), edge(i1,i2)));
+                edges.push_back(edge_t(euclid_distance(vector_coordinates[i], vector_coordinates[j]), edge(i,j)));
             }
         }
     }
