@@ -7,7 +7,8 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
-typedef std::tuple<double, std::tuple<int, int>> edge_t;
+typedef std::tuple<int, int> edge;
+typedef std::tuple<double, edge> edge_t;
 
 class Graph {
     int n;

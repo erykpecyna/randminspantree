@@ -19,10 +19,12 @@ Graph::~Graph() {
 void Graph::generate_vertices() {
     unsigned seed = chrono::system_clock::now().time_since_epoch().count();
     std::mt19937 generator(seed);
+    uniform_real_distribution unif(0,1);
+
     for (int i = 0; i < n; i++) {
         double coord[4] = {0.,0.,0.,0.};
         for (int j = 0; j < d; j++) {
-            coord[j] = generator();
+            coord[j] = unif(generator);
         }
         this->vector_coordinates.push_back(tuple<double, double, double, double>(coord[0], coord[1], coord[2], coord[3]));
     }    
@@ -33,15 +35,15 @@ void Graph::generate_edges() {
     std::mt19937 generator(seed);
 
     for(int row = 0; row < n; row++) {
-        vector<double> row_vec;
+
         for (int col = 0; col < n-row; col++) {
             if(d==1) {
-                row_vec.push_back(generator());
+                edges.push_back(edge_t(generator)
             } else {
                 row_vec.push_back(euclid_distance(vector_coordinates[row], vector_coordinates[row+col]));
             }
         }
-        edges.push_back(row_vec);
+        
     }
 }
 
