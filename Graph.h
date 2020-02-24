@@ -7,10 +7,12 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
+typedef std::tuple<double, std::tuple<int, int>> edge_t;
+
 class Graph {
     int n;
     int d;
-    std::vector<std::vector<double>> edges;
+    std::vector<edge_t> edges;
     double mstweight;
     int mstedges;
     std::vector<std::tuple<double,double,double,double>> vector_coordinates;
