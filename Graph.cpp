@@ -3,9 +3,11 @@
 using namespace std;
 
 Graph::Graph(int n, int d) {
-    n = n;
+    this->n = n;
+    this->d = d;
     edges.reserve(n);
     vector_coordinates.reserve(n);
+    sets.reserve(n);
     in_set = new bool[n]();
     mstedges = 0;
 }
@@ -17,7 +19,7 @@ Graph::~Graph() {
 void Graph::generate_vertices() {
     unsigned seed = chrono::system_clock::now().time_since_epoch().count();
     std::mt19937 generator(seed);
-    uniform_real_distribution unif(0,1);
+    uniform_real_distribution<double> unif(0,1);
 
     for (int i = 0; i < n; i++) {
         double coord[4] = {0.,0.,0.,0.};
@@ -31,7 +33,7 @@ void Graph::generate_vertices() {
 void Graph::generate_edges() {
     unsigned seed = chrono::system_clock::now().time_since_epoch().count();
     std::mt19937 generator(seed);
-    uniform_real_distribution unif(0,1);
+    uniform_real_distribution<double> unif(0,1);
 
     for(int i = 0; i < n; i++) {
 
@@ -47,24 +49,29 @@ void Graph::generate_edges() {
     sort(edges.begin(), edges.end());
 }
 
-void Graph::generate_MST_prims() {
+void Graph::generate_set() {
+    for (int i = 0; i < n; i++) {
+        UnionFind* set = new UnionFind(i);
+        sets.push_back(set);
+    }
+}
+
+void Graph::generate_MST_kruskal() {
     generate_vertices();
     generate_edges();
+    generate_set();
     
-    // Add first vertex and first edge
-    in_set[0] = true;
-    int min;
-    vector<double> first_row;
-    for (int i = 0; i < n; i++) {
-        if(first_row[i] < first_row[min])
-            min = i;
-    }
-    mstweight += first_row[min];
-    mstedges += 1;
-
-    // Main part of Prims
-    while (mstedges < n-1) {
+    for(edge_t e: edges) {
+        int u,v;
+        edge ed;
+        double weight;
+        tie(weight, ed) = e;
+        tie(u,v) = ed;
         
+        if(sets[u]->find() != sets[v]->find()) {
+            mstweight += weight;
+            sets[u]->find()->take_union(sets[v]->find());
+        }
     }
 
 }
