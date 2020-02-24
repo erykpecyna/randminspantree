@@ -3,7 +3,7 @@
 #ifndef UNIONFIND_H
 #define UNIONFIND_H
 
-class UnionFind {
+struct UnionFind {
     UnionFind* p;
     int rank;
     int vertex;

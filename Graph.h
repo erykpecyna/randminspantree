@@ -1,8 +1,11 @@
 #include<stdio.h>
 #include<vector>
 #include<random>
+#include<chrono>
 #include<tuple>
+#include<algorithm>
 #include "helpers.h"
+#include "UnionFind.h"
 
 #ifndef GRAPH_H
 #define GRAPH_H
@@ -14,6 +17,7 @@ class Graph {
     int n;
     int d;
     std::vector<edge_t> edges;
+    std::vector<UnionFind> sets;
     double mstweight;
     int mstedges;
     std::vector<std::tuple<double,double,double,double>> vector_coordinates;

@@ -1,6 +1,4 @@
 #include "Graph.h"
-#include <random>
-#include <chrono>
 
 using namespace std;
 
@@ -33,18 +31,20 @@ void Graph::generate_vertices() {
 void Graph::generate_edges() {
     unsigned seed = chrono::system_clock::now().time_since_epoch().count();
     std::mt19937 generator(seed);
+    uniform_real_distribution unif(0,1);
 
-    for(int row = 0; row < n; row++) {
+    for(int i1 = 0; i1 < n; i1++) {
 
-        for (int col = 0; col < n-row; col++) {
+        for (int i2 = i1 + 1; i2 < n; i2++) {
             if(d==1) {
-                edges.push_back(edge_t(generator)
+                edges.push_back(edge_t(unif(generator), edge(i1, i2)));
             } else {
-                row_vec.push_back(euclid_distance(vector_coordinates[row], vector_coordinates[row+col]));
+                edges.push_back(edge_t(euclid_distance(vector_coordinates[i1], vector_coordinates[i2]), edge(i1,i2)));
             }
         }
-        
     }
+    
+    sort(edges.begin(), edges.end());
 }
 
 void Graph::generate_MST_prims() {
