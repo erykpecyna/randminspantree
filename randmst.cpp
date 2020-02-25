@@ -10,11 +10,13 @@ int main(int argc, char* argv[]) {
 
     printf("%d %d %d\n", n, num_trials, d);
 
+    double totalweight = 0;
+
     for (int i = 0; i < num_trials; i++) {
-        printf("Trial %d\n", i);
         Graph* g = new Graph(n,d);
         g->generate_MST_kruskal();
-        printf("Weight is: %f\n", g->mstweight);
-        printf("\n");
+        totalweight += g->mstweight;
     }
+
+    printf("Average weight: %f\n", totalweight / num_trials);
 }
