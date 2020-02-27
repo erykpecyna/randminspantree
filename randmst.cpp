@@ -8,8 +8,6 @@ int main(int argc, char* argv[]) {
     int num_trials = std::stoi(argv[3]);
     int d = std::stoi(argv[4]);
 
-    printf("%d %d %d\n", n, num_trials, d);
-
     float totalweight = 0;
 
     for (int i = 0; i < num_trials; i++) {
@@ -19,5 +17,5 @@ int main(int argc, char* argv[]) {
         delete g;
     }
 
-    printf("Average weight: %f\n", totalweight / num_trials);
+    printf("%f %d %d %d\n", totalweight / num_trials, n, num_trials, d);
 }

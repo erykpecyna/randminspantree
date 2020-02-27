@@ -16,6 +16,7 @@ typedef std::tuple<float, edge> edge_t;
 struct Graph {
     int n;
     int d;
+    float lim;
     std::vector<edge_t> edges;
     std::vector<UnionFind*> sets;
     float mstweight;

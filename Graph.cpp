@@ -5,14 +5,19 @@ using namespace std;
 Graph::Graph(int n, int d) {
     this->n = n;
     this->d = d;
-    edges.reserve(n);
     vector_coordinates.reserve(n);
     sets.reserve(n);
     mstedges = 0;
+
+    lim = ((pow(d, 2) * 10) / n) + 0.01 + (d-1) *0.05;
+    if (d == 4) lim += 0.02;
 }
 
 Graph::~Graph() {
-
+    for(UnionFind* set: sets) {
+        delete set;
+    }
+    mstweight = 0;
 }
 
 void Graph::generate_vertices() {
@@ -38,9 +43,13 @@ void Graph::generate_edges() {
 
         for (int j = i + 1; j < n; j++) {
             if(d==1) {
-                edges.push_back(edge_t(unif(generator), edge(i, j)));
+                float rand = unif(generator);
+                if (lim > rand)
+                    edges.push_back(edge_t(rand, edge(i, j)));
             } else {
-                edges.push_back(edge_t(euclid_distance(vector_coordinates[i], vector_coordinates[j]), edge(i,j)));
+                float dist = euclid_distance(vector_coordinates[i], vector_coordinates[j]);
+                if (lim > dist)
+                    edges.push_back(edge_t(dist, edge(i,j)));
             }
         }
     }
@@ -63,6 +72,7 @@ void Graph::generate_MST_kruskal() {
     generate_vertices();
     generate_edges();
     generate_set();
+
     
     for(edge_t e: edges) {
         int u,v;
@@ -72,9 +82,13 @@ void Graph::generate_MST_kruskal() {
         tie(u,v) = ed;
         
         if(sets[u]->find() != sets[v]->find()) {
+            mstedges++;
             mstweight += weight;
             sets[u]->find()->take_union(sets[v]->find());
         }
+        if (mstedges >= n-1)
+            return;
     }
 
+    printf("Bah humbug, the bound is too tight\n");
 }
