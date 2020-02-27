@@ -1,7 +1,6 @@
 #include "UnionFind.h"
 
-UnionFind::UnionFind(int index) {
-    this->vertex = index;
+UnionFind::UnionFind() {
     this->rank = 0;
     this->p = this;
 }

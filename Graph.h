@@ -11,17 +11,16 @@
 #define GRAPH_H
 
 typedef std::tuple<int, int> edge;
-typedef std::tuple<double, edge> edge_t;
+typedef std::tuple<float, edge> edge_t;
 
 struct Graph {
     int n;
     int d;
     std::vector<edge_t> edges;
     std::vector<UnionFind*> sets;
-    double mstweight;
+    float mstweight;
     int mstedges;
-    std::vector<std::tuple<double,double,double,double>> vector_coordinates;
-    bool *in_set;
+    std::vector<std::tuple<float,float,float,float>> vector_coordinates;
 
     Graph(int n, int d);
     ~Graph();

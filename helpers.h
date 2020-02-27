@@ -6,6 +6,6 @@
 #ifndef HELPERS_H
 #define HELPERS_H
 
-double euclid_distance(std::tuple<double,double,double,double> p1, std::tuple<double,double,double,double> p2);
+float euclid_distance(std::tuple<float,float,float,float> p1, std::tuple<float,float,float,float> p2);
 
 #endif

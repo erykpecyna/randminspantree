@@ -6,9 +6,8 @@
 struct UnionFind {
     UnionFind* p;
     int rank;
-    int vertex;
 
-    UnionFind(int index);
+    UnionFind();
     UnionFind* find();
     UnionFind* link(UnionFind* u);
     UnionFind* take_union(UnionFind* u);

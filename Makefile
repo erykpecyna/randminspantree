@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -Wall -g -O3
+CXXFLAGS = -Wall -g -O0
 
 all: randmst
 

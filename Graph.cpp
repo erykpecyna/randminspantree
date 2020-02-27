@@ -8,32 +8,31 @@ Graph::Graph(int n, int d) {
     edges.reserve(n);
     vector_coordinates.reserve(n);
     sets.reserve(n);
-    in_set = new bool[n]();
     mstedges = 0;
 }
 
 Graph::~Graph() {
-    delete in_set;
+
 }
 
 void Graph::generate_vertices() {
     unsigned seed = chrono::system_clock::now().time_since_epoch().count();
     std::mt19937 generator(seed);
-    uniform_real_distribution<double> unif(0,1);
+    uniform_real_distribution<float> unif(0,1);
 
     for (int i = 0; i < n; i++) {
-        double coord[4] = {0.,0.,0.,0.};
+        float coord[4] = {0.,0.,0.,0.};
         for (int j = 0; j < d; j++) {
             coord[j] = unif(generator);
         }
-        this->vector_coordinates.push_back(tuple<double, double, double, double>(coord[0], coord[1], coord[2], coord[3]));
+        this->vector_coordinates.push_back(tuple<float, float, float, float>(coord[0], coord[1], coord[2], coord[3]));
     }    
 }
 
 void Graph::generate_edges() {
     unsigned seed = chrono::system_clock::now().time_since_epoch().count();
     std::mt19937 generator(seed);
-    uniform_real_distribution<double> unif(0,1);
+    uniform_real_distribution<float> unif(0,1);
 
     for(int i = 0; i < n; i++) {
 
@@ -45,13 +44,17 @@ void Graph::generate_edges() {
             }
         }
     }
+
+    vector_coordinates.clear();
+
+    
     
     sort(edges.begin(), edges.end());
 }
 
 void Graph::generate_set() {
     for (int i = 0; i < n; i++) {
-        UnionFind* set = new UnionFind(i);
+        UnionFind* set = new UnionFind();
         sets.push_back(set);
     }
 }
@@ -64,7 +67,7 @@ void Graph::generate_MST_kruskal() {
     for(edge_t e: edges) {
         int u,v;
         edge ed;
-        double weight;
+        float weight;
         tie(weight, ed) = e;
         tie(u,v) = ed;
         
