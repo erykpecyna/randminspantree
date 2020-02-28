@@ -5,12 +5,14 @@ using namespace std;
 Graph::Graph(int n, int d) {
     this->n = n;
     this->d = d;
-    vector_coordinates.reserve(n);
     sets.reserve(n);
     mstedges = 0;
 
-    lim = ((pow(d, 2) * 10) / n) + 0.01 + (d-1) *0.05;
-    if (d == 4) lim += 0.02;
+    if (d == 0) {
+        lim = (10/n) + 0.01;
+    } else {
+        lim = ((pow(d, 2) * 10) / n) + d *0.045;
+    }    
 }
 
 Graph::~Graph() {
@@ -21,6 +23,7 @@ Graph::~Graph() {
 }
 
 void Graph::generate_vertices() {
+    vector_coordinates.reserve(n);
     unsigned seed = chrono::system_clock::now().time_since_epoch().count();
     std::mt19937 generator(seed);
     uniform_real_distribution<float> unif(0,1);
@@ -42,7 +45,7 @@ void Graph::generate_edges() {
     for(int i = 0; i < n; i++) {
 
         for (int j = i + 1; j < n; j++) {
-            if(d==1) {
+            if(d==0) {
                 float rand = unif(generator);
                 if (lim > rand)
                     edges.push_back(edge_t(rand, edge(i, j)));
@@ -69,7 +72,8 @@ void Graph::generate_set() {
 }
 
 void Graph::generate_MST_kruskal() {
-    generate_vertices();
+    if (d!=0)
+        generate_vertices();
     generate_edges();
     generate_set();
 
