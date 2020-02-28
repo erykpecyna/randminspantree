@@ -1,6 +1,6 @@
-echo "D = 1"
+echo "D = 0"
 for ((k=128; k<=262144; k=k*2)); do
-./randmst 0 "$k" 5 1
+./randmst 0 "$k" 5 0
 done
 
 echo "D = 2"

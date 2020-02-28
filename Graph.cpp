@@ -9,10 +9,10 @@ Graph::Graph(int n, int d) {
     mstedges = 0;
 
     if (d == 0) {
-        lim = (10/n) + 0.01;
+        lim = (10./n) + 0.01;
     } else {
-        lim = ((pow(d, 2) * 10) / n) + d *0.045;
-    }    
+        lim = ((pow(d, 2) * 10) / n) + pow(d,2) * 0.01 + (d-1) * 0.01 ;
+    }
 }
 
 Graph::~Graph() {
