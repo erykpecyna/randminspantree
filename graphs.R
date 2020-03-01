@@ -64,7 +64,7 @@ plot(n, d2, type="b", main="Average weight of MST in Dimension 2", ylab="Avg. We
 plot(n, d3, type="b", main="Average weight of MST in Dimension 3", ylab="Avg. Weight")
 plot(n, d4, type="b", main="Average weight of MST in Dimension 4", ylab="Avg. Weight")
 
-n
+
 
 genguess <- function(x) {
   1^2 *10 / x + 0.01 + (1-1) * 0.05
@@ -79,3 +79,12 @@ guess(n) - qbeta(0.999, 1, n)
 curve(guess, add = TRUE)
 curve(genguess, add = TRUE)
 
+g1 <- function(x) {
+  x^(1/2)/2
+}
+g2 <- function(x) {
+  x^(2/3)/2
+}
+g3 <- function(x) {
+  x^(3/4)/2
+}
